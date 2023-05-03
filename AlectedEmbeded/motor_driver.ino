@@ -31,7 +31,7 @@ const byte sequence[6][6] = {
   {0, 0, 0, 1, 1, 0}
 };
 
-void setup() {
+void motor_driver_setup() {
   attachInterrupt(digitalPinToInterrupt(hall_A), changePhase, CHANGE);
   attachInterrupt(digitalPinToInterrupt(hall_B), changePhase, CHANGE);
   attachInterrupt(digitalPinToInterrupt(hall_C), changePhase, CHANGE);
@@ -110,7 +110,7 @@ void readThrottle() {
     pwm = 240;
 }
 
-void loop() {
+void motor_driver_loop() {
   //readThrottle();
   
   if (pwm > 10)
