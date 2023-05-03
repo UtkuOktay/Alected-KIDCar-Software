@@ -4,17 +4,17 @@
 #include <Adafruit_PCD8544.h>
 
 // Declare LCD object for software SPI
-#define CLK_1 2
-#define DIN_1 3
-#define DC_1 4
-#define CE_1 5
-#define RST_1 6
+#define CLK_1 45
+#define DIN_1 47
+#define DC_1 49
+#define CE_1 51
+#define RST_1 53
 
-#define CLK_2 2
-#define DIN_2 3
-#define DC_2 4
-#define CE_2 5
-#define RST_2 6
+#define CLK_2 35
+#define DIN_2 37
+#define DC_2 39
+#define CE_2 41
+#define RST_2 43
 
 // Adafruit_PCD8544(CLK,DIN,D/C,CE,RST);
 
@@ -27,9 +27,10 @@ float chart_values[] = {80, 5, 99, 50, 10, 20};
 char chart_names[6][3] = {"mT", "dT", "I", "V", "%", ":)"};
 
 void display_setup()   {
-	Serial.begin(9600);
 	display1.begin();
 	display1.setContrast(60);
+  display2.begin();
+  display2.setContrast(60);
 }
 
 int compute_length(int number, int font_width) {
@@ -81,6 +82,6 @@ void render_display_2(struct Adafruit_PCD8544 display, char names[][3], float va
 }
 
 void display_loop() {
-  //render_display_1(display1, velocity);  
+  render_display_1(display1, velocity);  
   render_display_2(display2, chart_names, chart_values, chart_max_values);
 }

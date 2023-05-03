@@ -46,7 +46,6 @@ void motor_driver_setup() {
   pinMode(hall_B, INPUT_PULLUP);
   pinMode(hall_C, INPUT_PULLUP);
 
-  Serial.begin(9600);
   pwm = 200;
 
   changePhase();
