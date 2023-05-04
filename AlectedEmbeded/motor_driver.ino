@@ -1,5 +1,3 @@
-#define throttle_pin A0
-
 #define A_HI 7
 #define A_LO 8
 #define B_HI 9
@@ -98,7 +96,7 @@ void changePhase() {
 }
 
 void readThrottle() {
-  throttle = map(digitalRead(throttle_pin), 175, 850, 0, 100);
+  
   
   pwm = map(throttle, 0, 100, 0, 240);
   
