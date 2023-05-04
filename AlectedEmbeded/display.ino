@@ -1,3 +1,4 @@
+#include "debug.h"
 
 #include <SPI.h>
 #include <Adafruit_GFX.h>
@@ -82,6 +83,6 @@ void render_display_2(struct Adafruit_PCD8544 display, char names[][3], float va
 }
 
 void display_loop() {
-  render_display_1(display1, velocity);  
-  render_display_2(display2, chart_names, chart_values, chart_max_values);
+  render_display_1(display1, velocity);  // 71.83ms
+  render_display_2(display2, chart_names, chart_values, chart_max_values);  // 63.58 ms
 }

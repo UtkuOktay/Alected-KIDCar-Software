@@ -15,7 +15,7 @@ int hall_C_state = 0;
 
 int hall_overall_state = 0;
 
-int throttle = 0;
+extern int sensor_throttle;
 int pwm = 0;
 
 int direction = 1; //1: Forward, 0: Reverse
@@ -81,7 +81,7 @@ void setPins() {
   }
   else {
     resetPins();
-    Serial.println("Incorrect Hall Sensor Values");
+    //Serial.println("Incorrect Hall Sensor Values");
   }
 }
 
@@ -97,8 +97,7 @@ void changePhase() {
 
 void readThrottle() {
   
-  
-  pwm = map(throttle, 0, 100, 0, 240);
+  pwm = map(sensor_throttle, 0, 100, 0, 240);
   
   if (pwm < 10)
     pwm = 0;
