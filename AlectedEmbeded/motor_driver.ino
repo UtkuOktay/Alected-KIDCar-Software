@@ -1,5 +1,3 @@
-#define throttle_pin A0
-
 #define A_HI 7
 #define A_LO 8
 #define B_HI 9
@@ -17,7 +15,7 @@ int hall_C_state = 0;
 
 int hall_overall_state = 0;
 
-int throttle = 0;
+extern int sensor_throttle;
 int pwm = 0;
 
 int direction = 1; //1: Forward, 0: Reverse
@@ -31,7 +29,7 @@ const byte sequence[6][6] = {
   {0, 0, 0, 1, 1, 0}
 };
 
-void setup() {
+void motor_driver_setup() {
   attachInterrupt(digitalPinToInterrupt(hall_A), changePhase, CHANGE);
   attachInterrupt(digitalPinToInterrupt(hall_B), changePhase, CHANGE);
   attachInterrupt(digitalPinToInterrupt(hall_C), changePhase, CHANGE);
@@ -46,7 +44,6 @@ void setup() {
   pinMode(hall_B, INPUT_PULLUP);
   pinMode(hall_C, INPUT_PULLUP);
 
-  Serial.begin(9600);
   pwm = 200;
 
   changePhase();
@@ -84,7 +81,7 @@ void setPins() {
   }
   else {
     resetPins();
-    Serial.println("Incorrect Hall Sensor Values");
+    //Serial.println("Incorrect Hall Sensor Values");
   }
 }
 
@@ -99,9 +96,8 @@ void changePhase() {
 }
 
 void readThrottle() {
-  throttle = map(digitalRead(throttle_pin), 175, 850, 0, 100);
   
-  pwm = map(throttle, 0, 100, 0, 240);
+  pwm = map(sensor_throttle, 0, 100, 0, 240);
   
   if (pwm < 10)
     pwm = 0;
@@ -110,7 +106,7 @@ void readThrottle() {
     pwm = 240;
 }
 
-void loop() {
+void motor_driver_loop() {
   //readThrottle();
   
   if (pwm > 10)
