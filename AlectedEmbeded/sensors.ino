@@ -3,6 +3,8 @@ int sensor_throttle;
 int sensor_motor_temp;
 int sensor_driver_temp;
 int sensor_voltage;
+float battery_percentage;
+float V = 5;
 
 #define throttle_pin A0
 #define motor_temp_pin A1
@@ -17,6 +19,12 @@ void sensors_setup(){
   pinMode(voltage_pin, INPUT);
 
   Serial.begin(9600);
+}
+
+float interprete_battery_percentage(float voltage){
+  float charge_left = -3142.3*pow(voltage,6) + 54836*pow(voltage,5) - 389293*pow(voltage,4) + 1*pow(10,6)*pow(voltage,2) + 3*pow(10,6) * voltage - 1E+06;
+  charge_left = 3325 - charge_left;
+  return (charge_left / 3325) * 100; 
 }
 
 float interperate_temperature(int sensor_input){
@@ -39,6 +47,7 @@ void sensors_loop(){
   sensor_motor_temp = analogRead(motor_temp_pin);
   sensor_driver_temp = analogRead(driver_temp_pin);
   sensor_voltage = analogRead(voltage_pin);
+  interprete_battery_percentage(V);
 
   //Serial.println("senrsor: " + String(sensor_throttle));
   //Serial.println("motor_temp_raw: " + String(sensor_motor_temp));
